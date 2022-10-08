@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">NFC_READER</string>
+    <string name="cardid">cardId</string>
+    <string name="kart_bekleniyor">Kart Bekleniyor...</string>
+</resources>
