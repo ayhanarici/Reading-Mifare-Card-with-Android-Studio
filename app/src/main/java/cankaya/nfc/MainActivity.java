@@ -38,6 +38,27 @@ public class MainActivity extends AppCompatActivity {
             //finish();
         }
     }
+
+    public static String convertByteArrayToHexString (byte[] b) {
+        if (b != null) {
+            StringBuilder s = new StringBuilder(2 * b.length);
+            for (int i = 0; i < b.length; ++i) {
+                final String t = Integer.toHexString(b[i]);
+                final int l = t.length();
+                if (l > 2) {
+                    s.append(t.substring(l - 2));
+                } else {
+                    if (l == 1) {
+                        s.append("0");
+                    }
+                    s.append(t);
+                }
+            }
+            return s.toString();
+        } else {
+            return "";
+        }
+    }
     @Override
     protected void onNewIntent(Intent intent) {
         Tag tag = intent.getParcelableExtra(nfcAdapter.EXTRA_TAG);
@@ -46,8 +67,9 @@ public class MainActivity extends AppCompatActivity {
         wrapped.order(ByteOrder.LITTLE_ENDIAN);
         int signedInt = wrapped.getInt();
         long number = signedInt & 0xffffffffl;
-        cardID.setText(Integer.toHexString(signedInt));
-        if (cardID.getText().equals("ad7bec4c"))//Örnek geçerli kart ID kontrolü
+        cardID.setText(convertByteArrayToHexString(id));
+        //cardID.setText(Integer.toHexString(number));
+        if (cardID.getText().equals("7b22051a")||cardID.getText().equals("6e76912b"))//Örnek geçerli kart ID kontrolü
         {
             bgLayer.setBackgroundColor(Color.GREEN);
         }else
